@@ -1,0 +1,30 @@
+{
+	"masterspark":{
+		"category": "master",
+		"sounds":[
+				"thkaguyamod:masterspark"
+		]
+	},
+	
+	"spellcard":{
+		"category": "master",
+		"sounds":[
+				"thkaguyamod:spellcard"
+		]
+	},
+	
+	"sukima":{
+		"category": "master",
+		"sounds":[
+				"thkaguyamod:sukima"
+		]
+	},
+
+	"down":{
+		"category": "master",
+		"sounds":[
+				"thkaguyamod:down"
+		]
+	}
+}
+	

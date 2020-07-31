@@ -1,0 +1,4 @@
+[submodule "librikka"]
+	path = librikka
+	url = https://github.com/rikka0w0/librikka.git
+	branch = 1.14.4

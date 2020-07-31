@@ -1,0 +1,340 @@
+﻿thKaguya.color.0=빨간색
+thKaguya.color.1=파란색
+thKaguya.color.2=초록색
+thKaguya.color.3=노란색
+thKaguya.color.4=보라색
+thKaguya.color.5=물빛
+thKaguya.color.6=주황색
+thKaguya.color.7=흰색
+thKaguya.color.8=랜덤
+thKaguya.color.9=무지갯빛
+thKaguya.color.10=따뜻한 색
+thKaguya.color.11=차가운 색
+
+thKaguya.front=앞
+thKaguya.back=뒤
+thKaguya.right=오른쪽
+thKaguya.left=왼쪽
+thKaguya.up=위
+thKaguya.down=아래
+
+thKaguya.item.kishitu=기질
+thKaguya.item.kaigo=상대 체력을 최대 체력의 3/4로 하는 정도의 대미지를 줍니다.
+
+entity.THKaguyaMod.Hanabeeper.name=하나비퍼
+
+entity.THKaguyaMod.THFairy.name=요정
+entity.THKaguyaMod.SunflowerFairy.name=요정
+entity.THKaguyaMod.THPhantom.name=유령
+entity.THKaguyaMod.Familiar.name=사역마
+
+entity.THKaguyaMod.Mima.name=미마
+entity.THKaguyaMod.Chiyuri.name=치유리
+entity.THKaguyaMod.Yumemi.name=유메미
+entity.THKaguyaMod.Elliy.name=엘리
+entity.THKaguyaMod.Mugetu.name=무게츠
+entity.THKaguyaMod.Gengetu.name=겐게츠
+entity.THKaguyaMod.Yumeko.name=유메코
+entity.THKaguyaMod.Shinki.name=신키
+entity.THKaguyaMod.Reimu.name=레이무
+entity.THKaguyaMod.Marisa.name=마리사
+entity.THKaguyaMod.Rumia.name=루미아
+entity.THKaguyaMod.Daiyousei.name=대요정
+entity.THKaguyaMod.Cirno.name=치르노
+entity.THKaguyaMod.Meirin.name=메이링
+entity.THKaguyaMod.Koakuma.name=소악마
+entity.THKaguyaMod.Patchouli.name=파츄리
+entity.THKaguyaMod.Sakuya.name=사쿠야
+entity.THKaguyaMod.Remilia.name=레밀리아
+entity.THKaguyaMod.Flandre.name=플랑드르
+entity.THKaguyaMod.Letty.name=레티
+entity.THKaguyaMod.Chen.name=첸
+entity.THKaguyaMod.Alice.name=앨리스
+entity.THKaguyaMod.Lily.name=릴리 화이트
+entity.THKaguyaMod.Lunasa.name=루나사
+entity.THKaguyaMod.Merlin.name=메를랑
+entity.THKaguyaMod.Lyrica.name=리리카
+entity.THKaguyaMod.Youmu.name=요우무
+entity.THKaguyaMod.Yuyuko.name=유유코
+entity.THKaguyaMod.Ran.name=란
+entity.THKaguyaMod.Yukari.name=유카리
+entity.THKaguyaMod.Suika.name=스이카
+entity.THKaguyaMod.Wriggle.name=리글
+entity.THKaguyaMod.Mystia.name=미스티아
+entity.THKaguyaMod.Keine.name=케이네
+entity.THKaguyaMod.Tewi.name=테위
+entity.THKaguyaMod.Udonge.name=레이센
+entity.THKaguyaMod.Eirin.name=에이린
+entity.THKaguyaMod.Kaguya.name=카구야
+entity.THKaguyaMod.Mokou.name=모코우
+entity.THKaguyaMod.Aya.name=아야
+entity.THKaguyaMod.Medicine.name=메디슨
+entity.THKaguyaMod.Yuuka.name=유카
+entity.THKaguyaMod.Komachi.name=코마치
+entity.THKaguyaMod.Shikieiki.name=시키에이키 야마자나두
+entity.THKaguyaMod.Shizuha.name=시즈하
+entity.THKaguyaMod.Minoriko.name=미노리코
+entity.THKaguyaMod.Hina.name=히나
+entity.THKaguyaMod.Nitori.name=니토리
+entity.THKaguyaMod.Momizi.name=모미지
+entity.THKaguyaMod.Sanae.name=사나에
+entity.THKaguyaMod.Kanako.name=카나코
+entity.THKaguyaMod.Suwako.name=스와코
+entity.THKaguyaMod.Iku.name=이쿠
+entity.THKaguyaMod.Tenshi.name=텐시
+entity.THKaguyaMod.Kisume.name=키스메
+entity.THKaguyaMod.Yamame.name=야마메
+entity.THKaguyaMod.Parsee.name=파르시
+entity.THKaguyaMod.Yuugi.name=유기
+entity.THKaguyaMod.Satori.name=사토리
+entity.THKaguyaMod.Orin.name=오린
+entity.THKaguyaMod.Okuu.name=오쿠
+entity.THKaguyaMod.Koishi.name=코이시
+entity.THKaguyaMod.Nazrin.name=나즈린
+entity.THKaguyaMod.Kogasa.name=코가사
+entity.THKaguyaMod.Ichirin.name=이치린
+entity.THKaguyaMod.Unzan.name=운잔
+entity.THKaguyaMod.Murasa.name=무라사
+entity.THKaguyaMod.Syou.name=쇼우
+entity.THKaguyaMod.Byakuren.name=뱌쿠렌
+entity.THKaguyaMod.Nue.name=누에
+entity.THKaguyaMod.Hatate.name=하타테
+entity.THKaguyaMod.Kyouko.name=쿄코
+entity.THKaguyaMod.Yoshika.name=요시카
+entity.THKaguyaMod.Seiga.name=세이가
+entity.THKaguyaMod.Toziko.name=토지코
+entity.THKaguyaMod.Futo.name=후토
+entity.THKaguyaMod.Miko.name=미코
+entity.THKaguyaMod.Mamizou.name=마미조
+entity.THKaguyaMod.Kokoro.name=코코로
+entity.THKaguyaMod.Wakasagihime.name=와카사기히메
+entity.THKaguyaMod.Sekibanki.name=세키반키
+entity.THKaguyaMod.Kagerou.name=카게로
+entity.THKaguyaMod.Benben.name=벤벤
+entity.THKaguyaMod.Yatuhashi.name=야츠하시
+entity.THKaguyaMod.Seija.name=세이자
+entity.THKaguyaMod.Shinmyoumaru.name=신묘마루
+entity.THKaguyaMod.Raiko.name=라이코
+entity.THKaguyaMod.Rinnosuke.name=린노스케
+entity.THKaguyaMod.Tokiko.name=토키코
+entity.THKaguyaMod.SunnyMilk.name=서니 밀크
+entity.THKaguyaMod.LunarChild.name=루나 차일드
+entity.THKaguyaMod.StarSaphire.name=스타 사파이어
+entity.THKaguyaMod.Akyuu.name=아큐
+entity.THKaguyaMod.Toyohime.name=토요히메
+entity.THKaguyaMod.Yorihime.name=요리히메
+entity.THKaguyaMod.Reisen.name=레이센
+entity.THKaguyaMod.Kasen.name=카센
+entity.THKaguyaMod.Kosuzu.name=코스즈
+entity.THKaguyaMod.Renko.name=렌코
+entity.THKaguyaMod.Merry.name=메리
+
+item.houraiJewelBranch.name=봉래의 옥의 가지
+item.buddhaStoneBowl.name=부처의 석발
+item.dragonNeckJewel.name=용 목의 구슬
+item.fireRatRobe.name=불 쥐의 가죽옷
+item.swallowCowrieShell.name=제비의 자안패
+item.houraiPearl.name=색진주
+item.kinkaku-ji.name=금각사의 천장 한 겹
+item.ajaRedStone.name=에이자의 적석
+
+item.hakureiMikoStick.name=하쿠레이의 불제봉
+item.homingAmulet.name=호밍 아뮬렛
+item.yinYangOrb.name=음양옥
+item.bloodthirstyYinYangOrb.name=피에 굶주린 음양옥
+item.magicBroom.name=마법 빗자루
+item.miniHakkero.name=미니 팔괘로
+item.marisaHat.name=마리사의 모자
+
+item.icicleSword.name=아이시클 소드
+item.silverKnife.name=은 나이프
+item.sakuyaWatch.name=사쿠야의 회중시계
+item.sakuyaStopwatch.name=스톱워치
+item.spearTheGungnir.name=스피어 더 궁니르
+item.laevateinn.name=레바테인
+
+item.cursedDecoyDoll.name=저주의 데코이 인형
+item.hakurouken.name=백루검
+item.roukanken.name=누관검
+item.yuyukoFan.name=유유코의 부채
+item.soulTorch.name=도깨비불 등
+item.gap.name=스키마
+item.gapFoldingUmbrella.name=스키마의 접이식 우산
+
+item.ibukiGourd.name=이부키효
+
+item.yuukaParasol.name=유카의 양산
+item.deathScythe.name=사신의 낫
+item.remorseRod.name=회오의 봉
+
+item.kappaCap.name=캇파의 모자
+item.kappaWaterPistol.name=캇파의 물총
+item.tenguFan.name=텐구의 부채
+item.windMikoStick.name=카제하후리의 불제봉
+item.byoukiheiyuMamori.name=건강기원 부적
+item.onbashira.name=온바시라
+item.suwakoHat.name=스와코의 모자
+
+item.heavenlyPeach.name=천계의 복숭아
+item.scarletPerceptionSword.name=비상의 검
+
+item.thirdEye.name=제 3의 눈
+item.nuclearControlRod.name=핵 제어봉
+item.closedThirdEye.name=감긴 제 3의 눈
+
+item.nazrinPendulum.name=나즈린 펜듈럼
+item.shipGhostDipperEmpty.name=뱃유령의 국자
+item.shipGhostDipper.name=뱃유령의 국자
+item.jeweledPagoda.name=비사문천의 보탑
+item.sorcererSutraScroll.name=마인경권
+
+item.wallPassingChisel.name=벽을 뚫는 끌
+item.toyosatomimiSword.name=토요사토미미의 보검
+
+item.miracleMallet.name=요술 방망이
+
+item.thSpellCard.name=스펠 카드
+item.thPointItem.name=점수 아이템
+item.thPowerItem.name=파워 업 아이템
+item.thBombItem.name=봄 아이템
+item.thExtendItem.name=익스텐드 아이템
+item.spiritualStrikeTalisman.name=영격찰
+item.shotMaterial.name=탄 재료
+item.thShot.name=샷
+item.thLaser.name=레이저
+
+item.houraiPearl.red.name=빨간 진주
+item.houraiPearl.blue.name=파란 진주
+item.houraiPearl.green.name=초록 진주
+item.houraiPearl.yellow.name=노란 진주
+item.houraiPearl.purple.name=보라 진주
+item.houraiPearl.aqua.name=물빛 진주
+item.houraiPearl.orange.name=주황 진주
+item.houraiPearl.white.name=흰 진주
+
+item.homingAmulet.homing.name=호밍 아뮬렛
+item.homingAmulet.diffusion.name=확산 아뮬렛
+
+item.silverKnife.blue.name=은 나이프
+item.silverKnife.red.name=은 나이프
+item.silverKnife.green.name=은 나이프
+item.silverKnife.white.name=타임 패러독스 나이프
+
+item.thPowerItem.small.name=작은 파워 업 아이템
+item.thPowerItem.big.name=큰 파워 업 아이템
+
+item.thShot.smallShot.name=환탄
+item.thShot.tinyShot.name=점탄
+item.thShot.mediumShot.name=중환탄
+item.thShot.bigShot.name=링탄
+item.thShot.starShot.name=별탄
+item.thShot.smallStarShot.name=작은 별탄
+item.thShot.circleShot.name=고리탄
+item.thShot.scaleShot.name=비늘탄
+item.thShot.butterflyShot.name=나비탄
+item.thShot.lightShot.name=광탄
+item.thShot.knifeShot.name=나이프탄
+item.thShot.heartShot.name=하트탄
+item.thShot.kunaiShot.name=쿠나이탄
+item.thShot.talismanShot.name=부적탄
+item.thShot.bigLightShot.name=대광탄
+item.thShot.riceShot.name=쌀탄
+item.thShot.ovalShot.name=타원탄
+item.thShot.crystalShot.name=수정탄
+item.thShot.arrowShot.name=화살탄
+
+item.thLaser.middle.name=레이저
+item.thLaser.short.name=짧은 레이저
+item.thLaser.long.name=긴 레이저
+
+item.thSpellCard.0.name=영부「몽상봉인」
+item.thSpellCard.1.name=연부「마스터 스파크」
+item.thSpellCard.2.name=사접「화서의 영면」
+item.thSpellCard.3.name=성부「미티어닉 샤워」
+item.thSpellCard.4.name=경부「파동과 입자의 경계」
+item.thSpellCard.5.name=망량「이중흑사접」
+item.thSpellCard.6.name=홍부「스칼렛 슛」
+item.thSpellCard.7.name=「전인류의 비상천」
+item.thSpellCard.8.name=메이드 비기「살인 인형」
+item.thSpellCard.9.name=동부「퍼펙트 프리즈」
+item.thSpellCard.10.name=환소「비광충 네스트」
+item.thSpellCard.11.name=수부「캇파의 포로로카」
+item.thSpellCard.12.name=마부「스타더스트 레버리」
+item.thSpellCard.13.name=토착신「케로쨩 비바람에도 지지않아」
+item.thSpellCard.14.name=기적「미라클 후르츠」
+item.thSpellCard.15.name=기적「패프러츠키스의 기적」
+item.thSpellCard.16.name=요괴퇴치「요력 스포일러」
+item.thSpellCard.17.name=개해「모세의 기적」
+item.thSpellCard.18.name=대기적「야사카의 신풍」
+item.thSpellCard.19.name=빙부「아이시클 폴」
+item.thSpellCard.20.name=금탄「스타보우 브레이크」
+item.thSpellCard.21.name=금탄「캐터디옵트릭」
+item.thSpellCard.22.name=수부「미샤구지님」
+item.thSpellCard.23.name=「레드 매직」
+item.thSpellCard.24.name=기술「이터널 미크」
+item.thSpellCard.25.name=연부「논디렉셔널 레이저」
+item.thSpellCard.26.name=환상「화조풍월, 소풍농월」
+item.thSpellCard.27.name=신창「스피어 더 궁니르」
+item.thSpellCard.28.name=월부「문라이트 레이」
+item.thSpellCard.29.name=화부「방화현란」
+item.thSpellCard.30.name=채부「채광난무」
+item.thSpellCard.33.name=봉래「개풍쾌청 -후지산 볼케이노-」
+item.thSpellCard.34.name=준부「리틀 버그 스톰」
+item.thSpellCard.35.name=형부「지상의 유성」
+item.thSpellCard.40.name=뇌시「카고우지 사이클론」
+item.thSpellCard.41.name=신보「브릴리언트 드래곤 바레트」
+item.thSpellCard.42.name=신보「부디스트 다이아몬드」
+item.thSpellCard.43.name=신보「셀러맨더 실드」
+item.thSpellCard.44.name=신보「라이프 스프링 인피니티」
+item.thSpellCard.45.name=신보「봉래의 옥의 가지 -꿈 빛 고향-」
+item.thSpellCard.50.name=Barrier "Curse of Dreams and Reality"
+
+
+tile.danmakuCraftingTable.shot.name=탄막 작업대
+tile.danmakuCraftingTable.laser.name=레이저 탄막 작업대
+tile.divineSpirit.name=소신령
+
+tile.divineSpirit.red.name=소신령
+tile.divineSpirit.blue.name=소신령
+tile.divineSpirit.green.name=소신령
+tile.divineSpirit.yellow.name=소신령
+tile.divineSpirit.purple.name=소신령
+tile.divineSpirit.aqua.name=소신령
+tile.divineSpirit.orange.name=소신령
+tile.divineSpirit.white.name=소신령
+
+thKaguya.msg.sneSc1=레벨이
+thKaguya.msg.sneSc2=만큼 필요하고, 별을 
+thKaguya.msg.sneSc3=개 그려야 합니다.
+thKaguya.msg.sneSc4=기적의 힘 : 
+
+thKaguya.msg.pendulum1=펜듈럼이
+thKaguya.msg.pendulum2=를(을) 찾기 시작했다!
+thKaguya.msg.pendulum3=를(을) 고감도 모드로 찾기 시작했다!
+
+danmakuCrafting.name=탄막 작업대
+danmakuCrafting.material=소재
+danmakuCrafting.number=탄수
+danmakuCrafting.speed=속도
+danmakuCrafting.damage=위력
+danmakuCrafting.color=색
+danmakuCrafting.gravity=중력가속도
+danmakuCrafting.bound=튕기는 수
+danmakuCrafting.form=탄막 개형
+danmakuCrafting.copy=복사
+
+laserCrafting.name=레이저 작업대
+
+thKaguya.danmakuForm.0=지점
+thKaguya.danmakuForm.1=전방 랜덤
+thKaguya.danmakuForm.2=부채꼴
+thKaguya.danmakuForm.3=모든 방향
+thKaguya.danmakuForm.4=구형
+thKaguya.danmakuForm.5=고리
+thKaguya.danmakuForm.6=미결정
+
+===================== Have not translated yet !!=============================
+============If you translated, Please donation it for this MOD===============
+
+=========================== Added in ver2.91 ================================
+item.thSpellCard.50.name=Barrier "Curse of Dreams and Reality"
