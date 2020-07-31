@@ -1,19 +1,20 @@
 package thKaguyaMod.item;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -44,23 +45,27 @@ public class ItemKerobou extends ArmorItem {
 	public int getItemEnchantability() {
         return 0;//エンチャント不可
     }
-	
-	//アイテムを大きく表示する
-	//public boolean isFull3D() {return true;}
-		
+
 	//Forgeの追加メソッド　エンチャントブックの使用を許可するか
 	@Override
 	public boolean isBookEnchantable(ItemStack itemstack1, ItemStack itemstack2) {
 	   return false;
 	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		if (!stack.isEnchanted()) {
+			tooltip.add(Enchantments.THORNS.getDisplayName(10));
+		}
+	}
 	
 	//Forgeの追加メソッド　アーマースロットに入っているときに呼び出される
 	@Override
-	public void onArmorTick(ItemStack itemStack, World world, PlayerEntity player) {
-		if (!itemStack.isEnchanted()) { // エンチャントがついていないなら、刺の鎧１０を付与（救済処置）
+	public void inventoryTick(ItemStack itemStack, World world, Entity entity, int itemSlot, boolean isSelected) {
+		if (!itemStack.isEnchanted()) {
 			itemStack.addEnchantment(Enchantments.THORNS, 10);
 		}
-		player.addPotionEffect(new EffectInstance(Effects.WATER_BREATHING, 200, 0, false, false, true));
 	}
 
     @Override

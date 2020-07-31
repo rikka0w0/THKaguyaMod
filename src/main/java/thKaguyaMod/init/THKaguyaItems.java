@@ -11,22 +11,23 @@ import thKaguyaMod.THKaguyaCore;
 /*
 import thKaguyaMod.item.ItemAjaRedStone;
 import thKaguyaMod.item.ItemBloodthirstyOnmyoudama;
+*/
 import thKaguyaMod.item.ItemBuddhaStoneBowl;
-import thKaguyaMod.item.ItemByoukiheiyuMamori;
+/*import thKaguyaMod.item.ItemByoukiheiyuMamori;
 import thKaguyaMod.item.ItemClosedThirdEye;
 import thKaguyaMod.item.ItemCursedDecoyDoll;
 import thKaguyaMod.item.ItemDeathScythe;
-import thKaguyaMod.item.ItemDragonNeckJewel;
+import thKaguyaMod.item.ItemDragonNeckJewel;*/
 import thKaguyaMod.item.ItemFireRatRobe;
-import thKaguyaMod.item.ItemGapFoldingUmbrella;
+/*import thKaguyaMod.item.ItemGapFoldingUmbrella;
 import thKaguyaMod.item.ItemHakurouken;
 import thKaguyaMod.item.ItemHeavenlyPeach;
 import thKaguyaMod.item.ItemHisou;
 import thKaguyaMod.item.ItemHisyaku;
 import thKaguyaMod.item.ItemHomingAmulet;
-import thKaguyaMod.item.ItemHouraiJeweledBranch;
-import thKaguyaMod.item.ItemHouraiPearl;
-import thKaguyaMod.item.ItemIbukihyou;
+import thKaguyaMod.item.ItemHouraiJeweledBranch;*/
+import thKaguyaMod.item.HouraiPearl;
+/*import thKaguyaMod.item.ItemIbukihyou;
 import thKaguyaMod.item.ItemIcicleSword;
 import thKaguyaMod.item.ItemKabenuke;
 import thKaguyaMod.item.ItemKaigo;*/
@@ -57,9 +58,9 @@ import thKaguyaMod.item.ItemSilverKnife;
 import thKaguyaMod.item.ItemSoulTorch;
 import thKaguyaMod.item.ItemSpearTheGungnir;
 import thKaguyaMod.item.ItemSpiritualStrikeTalisman;
-import thKaguyaMod.item.ItemSukima;
+import thKaguyaMod.item.ItemSukima;*/
 import thKaguyaMod.item.ItemSwallowCowrieShell;
-import thKaguyaMod.item.ItemTHBombItem;
+/*import thKaguyaMod.item.ItemTHBombItem;
 import thKaguyaMod.item.ItemTHExtendItem;
 import thKaguyaMod.item.ItemTHLaser;
 import thKaguyaMod.item.ItemTHPointItem;
@@ -89,7 +90,14 @@ public class THKaguyaItems
 	/** 燕の子安貝 */
 	public static Item swallow_cowrie_shell;
 	/** 色真珠 */
-	public static Item hourai_pearl;
+	public static Item red_pearl; /** 赤真珠 */
+	public static Item blue_pearl; /** 青真珠 */
+	public static Item green_pearl; /** 緑真珠 */
+	public static Item yellow_pearl; /** 黄真珠 */
+	public static Item purple_pearl; /** 紫真珠 */
+	public static Item aqua_pearl; /** 水真珠 */
+	public static Item orange_pearl; /** 橙真珠 */
+	public static Item white_pearl; /** 白真珠 */
 	/** 金閣寺の一枚天井 */
 	public static Item kinkakuji;
 	/** エイジャの赤石 */
@@ -270,22 +278,6 @@ public class THKaguyaItems
 	//public static Item bentlar_item;
 	
 	//==========================メタデータで異なるアイテム===============================//
-	/** 赤真珠 */
-	public static ItemStack red_pearl;
-	/** 青真珠 */
-	public static ItemStack blue_pearl;
-	/** 緑真珠 */
-	public static ItemStack green_pearl;
-	/** 黄真珠 */
-	public static ItemStack yellow_pearl;
-	/** 紫真珠 */
-	public static ItemStack purple_pearl;
-	/** 水真珠 */
-	public static ItemStack aqua_pearl;
-	/** 橙真珠 */
-	public static ItemStack orange_pearl;
-	/** 白真珠 */
-	public static ItemStack white_pearl;
 	/** 銀のナイフ 青 */
 	public static ItemStack silver_knife_blue;
 	/** 銀のナイフ 赤 */
@@ -379,7 +371,7 @@ public class THKaguyaItems
 
 	//新しいアーマー素材の性能を設定
 	/** 火鼠の皮衣の素材性能 */
-	public static final IArmorMaterial armorMaterial_Hinezumi = addArmorMaterial("hinezumi", 1, new int[]{1, 2, 2, 2}, 0);
+	public static final IArmorMaterial armorMaterial_Hinezumi = addArmorMaterial("hinezumi", 15, new int[]{1, 2, 2, 2}, 0);
 	/** 魔理沙の帽子の素材性能 */
 	public static final IArmorMaterial armorMaterial_Marisa   = addArmorMaterial("marisa", 1, new int[]{1,  1, 1, 1}, 0);
 	/** 諏訪子の帽子の素材性能 */
@@ -394,21 +386,20 @@ public class THKaguyaItems
 		//龍の頸の玉
 		//dragon_neck_jewel = new ItemDragonNeckJewel().setRegistryName("dragonNeckJewel");
 		//仏の御石の鉢
-		//buddha_stone_bowl = new ItemBuddhaStoneBowl(ToolMaterial.STONE).setRegistryName("buddhaStoneBowl");
+		buddha_stone_bowl = new ItemBuddhaStoneBowl();
 		//火鼠の皮衣
-		//fire_rat_robe = new ItemFireRatRobe(armorMaterial_Hinezumi, THKaguyaCore.hinezumiIndex, 1).setRegistryName("fireRatRobe");
+		fire_rat_robe = new ItemFireRatRobe(armorMaterial_Hinezumi);
 		//燕の子安貝
-		//swallow_cowrie_shell = new ItemSwallowCowrieShell( 0, false).setRegistryName("swallowCowrieShell");
+		swallow_cowrie_shell = new ItemSwallowCowrieShell();
 		//色真珠
-		/*hourai_pearl = new ItemHouraiPearl().setRegistryName("houraiPearl");
-			red_pearl    = new ItemStack(hourai_pearl,1, 0);
-			blue_pearl   = new ItemStack(hourai_pearl,1, 1);
-			green_pearl  = new ItemStack(hourai_pearl,1, 2);
-			yellow_pearl = new ItemStack(hourai_pearl,1, 3);
-			purple_pearl = new ItemStack(hourai_pearl,1, 4);
-			aqua_pearl   = new ItemStack(hourai_pearl,1, 5);
-			orange_pearl = new ItemStack(hourai_pearl,1, 6);
-			white_pearl  = new ItemStack(hourai_pearl,1, 7);*/
+		red_pearl = HouraiPearl.RED.newItem();
+		blue_pearl = HouraiPearl.BLUE.newItem();
+		green_pearl = HouraiPearl.GREEN.newItem();
+		yellow_pearl = HouraiPearl.YELLOW.newItem();
+		purple_pearl = HouraiPearl.PURPLE.newItem();
+		aqua_pearl = HouraiPearl.AQUA.newItem();
+		orange_pearl = HouraiPearl.ORANGE.newItem();
+		white_pearl = HouraiPearl.WHITE.newItem();
 		//金閣寺の一枚天井
 		//kinkakuji = new ItemKinkakuzi().setRegistryName("kinkaku-ji");
 		//エイジャの赤石
@@ -644,14 +635,17 @@ public class THKaguyaItems
 			float toughness, SoundEvent sound, Ingredient repairMaterial) {
 		return new IArmorMaterial() {
 			@Override
-			public int getDurability(EquipmentSlotType slotIn) {
+			public int getDurability(EquipmentSlotType slot) {
 				return durability;
 			}
 
 			@Override
-			public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-				// TODO Auto-generated method stub
-				return 0;
+			public int getDamageReductionAmount(EquipmentSlotType slot) {
+				if (slot.getSlotType() == EquipmentSlotType.Group.HAND) {
+					return 0;
+				} else {
+					return damangeReduction[slot.getIndex()];
+				}
 			}
 
 			@Override

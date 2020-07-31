@@ -36,8 +36,18 @@ public final class ModelDataProvider extends BlockStateProvider implements ISimp
 		});
 	}
 
+	public static void setTextureName(IItemProvider itemProvider) {
+		setTextureName(itemProvider, itemProvider.asItem().getRegistryName());
+	}
+
 	public static void setTextureName(IItemProvider itemProvider, String texture) {
-		simpleTextureItems.put(itemProvider, new ResourceLocation(texture));
+		ResourceLocation resLoc = texture.contains(":") ? new ResourceLocation(texture) :
+			new ResourceLocation(itemProvider.asItem().getRegistryName().getNamespace(), texture);
+		setTextureName(itemProvider, resLoc);
+	}
+
+	public static void setTextureName(IItemProvider itemProvider, ResourceLocation resLoc) {
+		simpleTextureItems.put(itemProvider, resLoc);
 	}
 
     //////////////////////

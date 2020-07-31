@@ -120,13 +120,21 @@ public class CommonProxy {
 		//アイテムの内部名を決める
 		/*
 		GameRegistry.registerItem( THKaguyaItems.hourai_Jeweled_branch		, "Jeweled Branch of Hourai"		);
-		GameRegistry.registerItem( THKaguyaItems.dragon_neck_jewel			, "Jewel from the Dragon's Neck"	);
-		GameRegistry.registerItem( THKaguyaItems.buddha_stone_bowl			, "Buddha's Stone Bowl"				);
-		GameRegistry.registerItem( THKaguyaItems.fire_rat_robe				, "Robe of the Fire Rat"			);
-		GameRegistry.registerItem( THKaguyaItems.swallow_cowrie_shell		, "Swallow's Cowrie Shell"			);
-		GameRegistry.registerItem( THKaguyaItems.hourai_pearl				, "Color Pearl"						);
+		GameRegistry.registerItem( THKaguyaItems.dragon_neck_jewel			, "Jewel from the Dragon's Neck"	);*/
+		registry.register(THKaguyaItems.buddha_stone_bowl); //Buddha's Stone Bowl
+		registry.register(THKaguyaItems.fire_rat_robe); // Robe of the Fire Rat
+		registry.register(THKaguyaItems.swallow_cowrie_shell); // Swallow's Cowrie Shell
+		// Color Pearl
+		registry.register(THKaguyaItems.red_pearl);
+		registry.register(THKaguyaItems.blue_pearl);
+		registry.register(THKaguyaItems.green_pearl);
+		registry.register(THKaguyaItems.yellow_pearl);
+		registry.register(THKaguyaItems.purple_pearl);
+		registry.register(THKaguyaItems.aqua_pearl);
+		registry.register(THKaguyaItems.orange_pearl);
+		registry.register(THKaguyaItems.white_pearl);
 		
-		GameRegistry.registerItem( THKaguyaItems.kinkakuji					, "Seamless Ceiling of Kinkaku-ji"	);
+		/*GameRegistry.registerItem( THKaguyaItems.kinkakuji					, "Seamless Ceiling of Kinkaku-ji"	);
 		GameRegistry.registerItem( THKaguyaItems.aja_red_stone				, "Red Stone of Aja"				);
 		
 		GameRegistry.registerItem( THKaguyaItems.hakurei_miko_stick			, "Hakurei Shrine Maiden Stick"		);
