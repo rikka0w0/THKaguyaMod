@@ -2,9 +2,12 @@ package thKaguyaMod.client.model;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
-
 import net.minecraft.entity.LivingEntity;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
 public class ModelMarisaHat<T extends LivingEntity> extends BipedModel<T> {
     RendererModel hatBase;
     RendererModel hatBase2;
