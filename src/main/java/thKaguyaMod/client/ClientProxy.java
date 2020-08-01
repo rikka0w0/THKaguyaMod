@@ -26,9 +26,9 @@ import thKaguyaMod.client.render.RenderTHItem;
 import thKaguyaMod.client.render.RenderYuukaParasol;
 import thKaguyaMod.client.render.effect.RenderHakurouReflecter;
 import thKaguyaMod.client.render.effect.RenderMiracleCircle;
-import thKaguyaMod.client.render.effect.RenderSpellCardCircle;
+import thKaguyaMod.client.render.effect.RenderSpellCardCircle;*/
 import thKaguyaMod.client.render.living.RenderCirno;
-import thKaguyaMod.client.render.living.RenderCursedDecoyDoll;
+/*import thKaguyaMod.client.render.living.RenderCursedDecoyDoll;
 import thKaguyaMod.client.render.living.RenderFamiliar;
 import thKaguyaMod.client.render.living.RenderMiko;
 import thKaguyaMod.client.render.living.RenderReimu;
@@ -69,9 +69,9 @@ import thKaguyaMod.entity.item.EntitySakuyaWatch;
 import thKaguyaMod.entity.item.EntitySilverKnife;
 import thKaguyaMod.entity.item.EntitySpiritualStrikeTalisman;
 import thKaguyaMod.entity.item.EntitySukima;
-import thKaguyaMod.entity.item.EntityYuukaParasol;
+import thKaguyaMod.entity.item.EntityYuukaParasol;*/
 import thKaguyaMod.entity.living.EntityCirno;
-import thKaguyaMod.entity.living.EntityDanmakuCreeper;
+/*import thKaguyaMod.entity.living.EntityDanmakuCreeper;
 import thKaguyaMod.entity.living.EntityFamiliar;
 import thKaguyaMod.entity.living.EntityMiko;
 import thKaguyaMod.entity.living.EntityReimu;
@@ -108,16 +108,15 @@ public class ClientProxy extends CommonProxy
 		//MinecraftForgeClient.preloadTexture("/armor/hinezumi_1.png");
 	}
 	
-	public void registerRenderers()
-	{	
+	public void registerRenderers() {
 		/*
 		// Entityのクラスと描画, モデルを結びつける
 		RenderingRegistry.registerEntityRenderingHandler( EntityTHFairy.class						, new RenderTHFairy()					);
 		RenderingRegistry.registerEntityRenderingHandler( EntitySunFlowerFairy.class				, new RenderSunFlowerFairy()			);
 		RenderingRegistry.registerEntityRenderingHandler( EntityTHPhantom.class					, new RenderTHPhantom()					);
-		RenderingRegistry.registerEntityRenderingHandler( EntityFamiliar.class						, new RenderFamiliar()					);
-		RenderingRegistry.registerEntityRenderingHandler( EntityCirno.class						, new RenderCirno()						);
-		RenderingRegistry.registerEntityRenderingHandler( EntityRumia.class						, new RenderRumia()						);
+		RenderingRegistry.registerEntityRenderingHandler( EntityFamiliar.class						, new RenderFamiliar()					);*/
+		RenderingRegistry.registerEntityRenderingHandler(EntityCirno.class, renderManager -> new RenderCirno(renderManager));
+		/*RenderingRegistry.registerEntityRenderingHandler( EntityRumia.class						, new RenderRumia()						);
 		RenderingRegistry.registerEntityRenderingHandler( EntityToziko.class						, new RenderToziko()					);
 		RenderingRegistry.registerEntityRenderingHandler( EntitySanae.class						, new RenderSanae()						);
 		RenderingRegistry.registerEntityRenderingHandler( EntityRinnosuke.class					, new RenderRinnosuke()					);

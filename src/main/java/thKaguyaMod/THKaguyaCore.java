@@ -1,6 +1,7 @@
 package thKaguyaMod;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -92,6 +93,12 @@ public class THKaguyaCore {
     	}
     	
     	@SubscribeEvent
+		public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    		//エンティティの登録
+    		proxy.registerEntities(event.getRegistry());
+    	}
+    	
+    	@SubscribeEvent
     	public static void onTileEntityTypeRegistration(final RegistryEvent.Register<TileEntityType<?>> event) {
     		//TileEntityの登録
     		/*
@@ -128,9 +135,6 @@ public class THKaguyaCore {
 		
 		//GUIの登録
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		
-		//エンティティの登録
-		proxy.registerEntitys();
 		
 		//妖精などの弾幕パターンを登録
 		proxy.registerDanmakuPattern();

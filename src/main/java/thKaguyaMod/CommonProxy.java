@@ -1,10 +1,17 @@
 package thKaguyaMod;
 
+import java.util.List;
+
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 /*
 import thKaguyaMod.entity.EntityDivineSpirit;
 import thKaguyaMod.entity.EntityShotMaterial;
@@ -26,9 +33,9 @@ import thKaguyaMod.entity.item.EntitySakuyaWatch;
 import thKaguyaMod.entity.item.EntitySilverKnife;
 import thKaguyaMod.entity.item.EntitySpiritualStrikeTalisman;
 import thKaguyaMod.entity.item.EntitySukima;
-import thKaguyaMod.entity.item.EntityYuukaParasol;
+import thKaguyaMod.entity.item.EntityYuukaParasol;*/
 import thKaguyaMod.entity.living.EntityCirno;
-import thKaguyaMod.entity.living.EntityDanmakuCreeper;
+/*import thKaguyaMod.entity.living.EntityDanmakuCreeper;
 import thKaguyaMod.entity.living.EntityFamiliar;
 import thKaguyaMod.entity.living.EntityMiko;
 import thKaguyaMod.entity.living.EntityReimu;
@@ -90,6 +97,7 @@ import thKaguyaMod.init.THKaguyaBlocks;
 import thKaguyaMod.init.THKaguyaConfig;
 */
 import thKaguyaMod.init.THKaguyaItems;
+import net.minecraftforge.event.RegistryEvent;
 /*
 import thKaguyaMod.item.ItemBlockDanmakuCraftingTable;
 import thKaguyaMod.item.ItemBlockDivineSpirit;
@@ -217,10 +225,7 @@ public class CommonProxy {
 	}
 	
 	/** エンティティを登録する */
-	public void registerEntitys()
-	{
-
-		
+	public void registerEntities(final IForgeRegistry<EntityType<?>> registry) {
 		/*
 		 サーバーとクライアントのエンティティを同期させるメソッド
 		 各引数はそれぞれ以下のとおり
@@ -270,9 +275,9 @@ public class CommonProxy {
 		EntityRegistry.registerModEntity( EntitySpellCardCircle.class			, "SpellCardCircle"			, 33, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityCursedDecoyDoll.class			, "CursedDecoyDoll"			, 34, THKaguyaCore.instance, 60, 5, false	);
 		
-		EntityRegistry.registerModEntity( EntityTHFairy.class					, "THFairy"					,  64, THKaguyaCore.instance, 80, 1, true	);
-		EntityRegistry.registerModEntity( EntityCirno.class       				, "Cirno"      				,  65, THKaguyaCore.instance, 80, 1, true	);
-		EntityRegistry.registerModEntity( EntityRumia.class     				, "Rumia"     				,  66, THKaguyaCore.instance, 80, 1, true	);
+		EntityRegistry.registerModEntity( EntityTHFairy.class					, "THFairy"					,  64, THKaguyaCore.instance, 80, 1, true	);*/
+		registry.register(EntityCirno.entityType); // id = 65, trackingRange = 80, updateFrequency = 1, sendsVelocityUpdates = true
+		/*EntityRegistry.registerModEntity( EntityRumia.class     				, "Rumia"     				,  66, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityToziko.class     				, "Toziko"     				,  67, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityTHPhantom.class					, "THPhantom"				,  68, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntitySanae.class            			, "Sanae"					,  69, THKaguyaCore.instance, 80, 1, true	);
@@ -688,5 +693,20 @@ public class CommonProxy {
 	public int getNewRenderType()
 	{
 		return -1;
+	}
+
+	public static void addSpawn(EntityType<? extends LivingEntity> entityType, int weightedProb, int min, int max, EntityClassification typeOfCreature, Biome... biomes) {
+		for (final Biome biome : biomes) {
+			final List<Biome.SpawnListEntry> spawns = biome.getSpawns(typeOfCreature);
+
+			// Try to find an existing entry for the entity type
+			spawns.stream()
+					.filter(entry -> entry.entityType == entityType)
+					.findFirst()
+					.ifPresent(spawns::remove); // If there is one, remove it
+
+			// Add a new one
+			spawns.add(new Biome.SpawnListEntry(entityType, weightedProb, min, max));
+		}
 	}
 }
