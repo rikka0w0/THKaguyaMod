@@ -21,6 +21,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -375,19 +376,7 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
 	
 	///////////////////////////////
 	/// Overridden Entity methods
-	///////////////////////////////
-	//落下させる
-    @Override
-	public void fall(float distance, float damageMultiplier) {
-		if (getFlyingHeight() > 0) {
-			super.fall(distance, damageMultiplier);
-		}
-    }
-    
-    //落下しているときの処理
-    @Override
-    protected void updateFallState(double y, boolean onGround, BlockState state, BlockPos pos) {}
-    
+	///////////////////////////////  
     //Entityの発する音の大きさ
     @Override
 	protected float getSoundVolume() {
@@ -577,6 +566,69 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
     @Deprecated // TODO: Absolutely makes no sense, why not use getVecFromAngle()
     public static Vec3d angle(float yaw, float pitch) {
     	return THShotLib.angle(yaw, pitch);
+    }
+    
+	////////////////////////
+	/// Motion Control
+	////////////////////////
+	//落下させる
+    @Override
+	public void fall(float distance, float damageMultiplier) {
+		if (getFlyingHeight() > 0) {
+			super.fall(distance, damageMultiplier);
+		}
+    }
+    
+    //落下しているときの処理
+    @Override
+    protected void updateFallState(double y, boolean onGround, BlockState state, BlockPos pos) {}
+
+    /**
+     * Moves the entity based on the specified heading.  Args: strafe, forward
+     */
+    @Override
+    public void travel(Vec3d towards) {
+    	// moveEntityWithHeading(strafe, forward) -> 
+    	// travel(new Vec3d((double)this.moveStrafing, (double)this.moveVertical, (double)this.moveForward))
+		if (getFlyingHeight() <= 0) {
+			super.travel(towards);
+			return;
+		}
+    	this.moveRelative(0.02F, towards);
+    	
+    	// Copied from FlyingEntity
+		if (this.isInWater()) {
+			this.moveRelative(0.02F, towards);
+			this.move(MoverType.SELF, this.getMotion());
+			this.setMotion(this.getMotion().scale((double) 0.8F));
+		} else {
+	         BlockPos ground = new BlockPos(this.posX, this.getBoundingBox().minY - 1.0D, this.posZ);
+	         float f = 0.91F;
+	         if (this.onGround) {
+	            f = this.world.getBlockState(ground).getSlipperiness(world, ground, this) * 0.91F;
+	         }
+
+	         float f1 = 0.16277137F / (f * f * f);
+	         f = 0.91F;
+	         if (this.onGround) {
+	            f = this.world.getBlockState(ground).getSlipperiness(world, ground, this) * 0.91F;
+	         }
+
+	         this.moveRelative(this.onGround ? 0.1F * f1 : 0.02F, towards);
+	         this.move(MoverType.SELF, this.getMotion());
+	         this.setMotion(this.getMotion().scale((double)f));
+        }
+
+	      this.prevLimbSwingAmount = this.limbSwingAmount;
+	      double d1 = this.posX - this.prevPosX;
+	      double d0 = this.posZ - this.prevPosZ;
+	      float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+	      if (f2 > 1.0F) {
+	         f2 = 1.0F;
+	      }
+
+	      this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
+	      this.limbSwing += this.limbSwingAmount;
     }
     
 	////////////////////////
@@ -1050,6 +1102,8 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
     			
 			if (!stop) {
 				setRotation(angleXZ, angleY);
+				// TODO: Check head rotation fix
+				this.setRotationYawHead(angleXZ);
 			}
         	
     		//ターゲットを目視できるなら
@@ -1300,83 +1354,7 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
         	super.setPositionAndUpdate(par1, par3, par5);
         }
     }*/
-    
-    /**
-     * Moves the entity based on the specified heading.  Args: strafe, forward
-     */
-    /* TODO: This shit changes too much
-    @Override
-    public void travel(Vec3d towards) {
-    	// moveEntityWithHeading(strafe, forward) -> 
-    	// travel(new Vec3d((double)this.moveStrafing, (double)this.moveVertical, (double)this.moveForward))
-		if (getFlyingHeight() <= 0) {
-			super.travel(towards);
-			return;
-		}
 
-    	this.moveFlying(par1, par2, 0.02F);
-    	
-    	if(!world.isRemote)
-    	{
-    		//this.moveEntity(Math.cos(rotationYaw / 180F * 3.141593F) * speed, motionY, Math.sin(rotationYaw / 180F * 3.141593F) * speed);
-    	}
-    	
-    	//motionX *= 0.9F;
-    	//motionZ *= 0.9F;
-        if (this.isInWater())
-        {
-        	this.moveFlying(par1, par2, 0.02F);
-            this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= 0.800000011920929D;
-            this.motionY *= 0.800000011920929D;
-            this.motionZ *= 0.800000011920929D;
-        }
-        else
-        {
-            float f2 = 0.91F;
-
-            if (this.onGround)
-            {
-                f2 = this.world.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
-            }
-
-            float f3 = 0.16277136F / (f2 * f2 * f2);
-            this.moveFlying(par1, par2, this.onGround ? 0.1F * f3 : 0.02F);
-            f2 = 0.91F;
-
-            if (this.onGround)
-            {
-                f2 = this.worldObj.getBlock(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ)).slipperiness * 0.91F;
-            }
-
-            this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double)f2;
-            this.motionY *= (double)f2;
-            this.motionZ *= (double)f2;
-        }
-
-        this.prevLimbSwingAmount = this.limbSwingAmount;
-        double d1 = this.posX - this.prevPosX;
-        double d0 = this.posZ - this.prevPosZ;
-        float f4 = MathHelper.sqrt_double(d1 * d1 + d0 * d0) * 4.0F;
-
-        if (f4 > 1.0F)
-        {
-            f4 = 1.0F;
-        }
-
-        this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
-    }*/
-    
-    /*public void moveEntity(double par1, double par3, double par5)
-    {
-    	if(ticksExisted > lastTime)
-    	{
-    		super.moveEntity(par1, par3, par5);
-    	}
-    }*/
-    
     //弾幕パターンの記述
 	protected void danmakuPattern(int level) {
 		// Callback

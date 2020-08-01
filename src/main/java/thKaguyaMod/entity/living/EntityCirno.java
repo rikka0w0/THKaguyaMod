@@ -427,6 +427,6 @@ public class EntityCirno extends EntityDanmakuMob {
 	protected void registerGoals() {
 		super.registerGoals();
 
-		//targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, CowEntity.class, 10, true, false, (player) -> true));
+		// targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (player) -> true));
 	}
 }

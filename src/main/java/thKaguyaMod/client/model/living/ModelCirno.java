@@ -179,33 +179,32 @@ public class ModelCirno extends EntityModel<EntityCirno> {
 
 
   }
-  
-  @Override
+
+	@Override
 	public void render(EntityCirno entity, float movement, float far, float tick, float yaw, float pitch, float size) {
 		super.render(entity, movement, far, tick, yaw, pitch, size);
-    setRotationAngles(entity, movement, far, tick, yaw, pitch, size);
-    head.render(size);
-    body.render(size);
-    skirt.render(size);
-    rightArm.render(size);
-    rightLeg.render(size);
-    leftArm.render(size);
-    leftLeg.render(size);
-  	
-    rightWing.render(size);
-  	rightWing2.render(size);
-  	rightWing3.render(size);
-    leftWing.render(size);
-  	leftWing2.render(size);
-  	leftWing3.render(size);
-  }
+		setRotationAngles(entity, movement, far, tick, yaw, pitch, size);
+		head.render(size);
+		body.render(size);
+		skirt.render(size);
+		rightArm.render(size);
+		rightLeg.render(size);
+		leftArm.render(size);
+		leftLeg.render(size);
+
+		rightWing.render(size);
+		rightWing2.render(size);
+		rightWing3.render(size);
+		leftWing.render(size);
+		leftWing2.render(size);
+		leftWing3.render(size);
+	}
   
-  private void setRotation(RendererModel model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
+	private void setRotation(RendererModel model, float x, float y, float z) {
+		model.rotateAngleX = x;
+		model.rotateAngleY = y;
+		model.rotateAngleZ = z;
+	}
   
   @Override
 	public void setRotationAngles(EntityCirno entity, float movement, float far, float tick, float yaw, float pitch,
@@ -215,7 +214,7 @@ public class ModelCirno extends EntityModel<EntityCirno> {
 
   	this.head.rotateAngleY = yaw / (180F / (float)Math.PI);
     this.head.rotateAngleX = pitch / (180F / (float)Math.PI);
-  	this.body.rotateAngleY = MathHelper.sin(MathHelper.sqrt(entity.getRotationYawHead()) * (float)Math.PI * 2.0F) * 0.2F; // TODO: was onGround
+  	this.body.rotateAngleY = MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI * 2.0F) * 0.2F;
   	this.skirt.rotateAngleX = 0F;
 
   	//スペルカードの宣言をする
