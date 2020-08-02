@@ -4,11 +4,17 @@ package thKaguyaMod.entity.living;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorld;
@@ -108,12 +114,15 @@ public class EntityCirno extends EntityDanmakuMob {
     /** 弾幕のパターンを記述
      * @param level : EASY～LUNATICの難易度
      */
-	/* TOOD danmaku system is pretty much fucked up
+
     @Override
     public void danmakuPattern(int level) {
     	Vec3d angle = THShotLib.getVecFromAngle(rotationYaw, rotationPitch);
-    	
-		switch (getDanmakuPattern()) {
+    	if(attackCounter >= 40) {
+    		attackCounter = 0;
+        	attackEntityWithRangedAttack(this.getAttackTarget(), 1);
+    	}
+		/*switch (getDanmakuPattern()) {
 		case NORMAL_ATTACK01:
 			danmaku01(angle, level);
 			break;
@@ -128,9 +137,9 @@ public class EntityCirno extends EntityDanmakuMob {
 			break;
 		default:
 			break;
-		}
+		}*/
     }
-    
+    	/* TOOD danmaku system is pretty much fucked up
     //通常１
     private void danmaku01(Vec3 angle, int level)
     {
@@ -428,5 +437,25 @@ public class EntityCirno extends EntityDanmakuMob {
 		super.registerGoals();
 
 		// targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (player) -> true));
+	}
+	
+	/**
+	 * Attack the specified entity using a ranged attack.
+	 */
+	public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
+		ItemStack itemstack = new ItemStack(Items.ARROW);
+		AbstractArrowEntity abstractarrowentity = this.func_213624_b(itemstack, distanceFactor);
+		double d0 = target.posX - this.posX;
+		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - abstractarrowentity.posY;
+		double d2 = target.posZ - this.posZ;
+		double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
+		abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F,
+				(float) (14 - this.world.getDifficulty().getId() * 4));
+		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+		this.world.addEntity(abstractarrowentity);
+	}
+
+	protected AbstractArrowEntity func_213624_b(ItemStack p_213624_1_, float p_213624_2_) {
+		return ProjectileHelper.func_221272_a(this, p_213624_1_, p_213624_2_);
 	}
 }

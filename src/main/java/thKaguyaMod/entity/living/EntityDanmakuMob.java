@@ -20,6 +20,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -1048,25 +1049,35 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
 			}
         }
 
-    	
+        LivingEntity targetVictim = this.getAttackTarget();
     	//ターゲットがいるが、死んでいるなら
-		if (this.getAttackTarget() != null && this.getAttackTarget().removed) {
-			this.setAttackTarget(null); // ターゲットから外す
+		if (targetVictim != null && targetVictim.removed) {
+			targetVictim = null;
+			this.setAttackTarget(targetVictim); // ターゲットから外す
 		}
-    	
+
+    	double entityToAttackableLength = this.getAttackDistance();//攻撃する射程
+
     	//ターゲットがいないなら
-		if (this.getAttackTarget() == null) {
-    		//敵対範囲内にいるプレイヤーを探す
-			this.setAttackTarget(this.world.getClosestPlayer(this, getDetectionDistance()));
+		if (targetVictim == null) {
+			AxisAlignedBB aabb = (new AxisAlignedBB(this.getPosition())).grow(entityToAttackableLength, entityToAttackableLength, entityToAttackableLength);
+			for (PlayerEntity potentialVictim: this.world.getEntitiesWithinAABB(PlayerEntity.class, aabb)) {
+				//敵対範囲内にいるプレイヤーを探す
+				if (this.canEntityBeSeen(potentialVictim)) {	// Rikka's Fix: Only targets directly visible player
+					targetVictim = potentialVictim;
+					this.setAttackTarget(targetVictim);
+					break;
+				}
+			}
 
             //プレイヤーがいるなら
-            if (this.getAttackTarget() != null) {
+            if (targetVictim != null) {
             	//妖精を敵対化させられるなら、周りの妖精を敵対化させる
             	if(canFairyCall())
             	{
             		//範囲内のEntityをリストで取得
 	            	List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, 
-	            			this.getBoundingBox().expand(getFairyCallDistance(), getFairyCallDistance(), getFairyCallDistance()));//指定範囲内のEntityをリストに登録
+	            			this.getBoundingBox().grow(getFairyCallDistance()));//指定範囲内のEntityをリストに登録
 					for (int i = 0; i < list.size(); i++) {
 						Entity entity1 = (Entity) list.get(i);
 						// 弾幕MOBなら
@@ -1074,9 +1085,9 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
 						/*if (entity1 instanceof EntityTHFairy) {
 							MobEntity danmakuMob = (MobEntity) entity1;
 							// 妖精のターゲットがいないなら
-							if (danmakuMob.getAttackTarget() == null) {
+							if (targetVictim == null) {
 								// 妖精のターゲットをこの弾幕MOBと同じターゲットにする
-								danmakuMob.setAttackTarget(this.getAttackTarget());
+								danmakuMob.setAttackTarget(targetVictim);
 							}
 						}*/
 					}
@@ -1085,14 +1096,10 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
             }
         }
     	
-    	double entityToAttackableLength = this.getAttackDistance();//攻撃する射程
-    	
-    	LivingEntity targetVictim = this.getAttackTarget();
     	//射程圏内にターゲットがいるなら
     	if(targetVictim != null && !removed /*&& entityToAttack.getDistanceSqToEntity(this) < entityToAttackableLength * entityToAttackableLength*/)
     	{
 
-    			
     		//ターゲットの方を向かせる
     		double xDistance = targetVictim.posX - posX;
     		double yDistance = (targetVictim.posY + targetVictim.getEyeHeight()) - (posY + this.getEyeHeight());
@@ -1107,15 +1114,14 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
 			}
         	
     		//ターゲットを目視できるなら
-			if (canEntityBeSeen(targetVictim)) {
+			if (canEntityBeSeen(targetVictim) && this.getDistance(targetVictim) < entityToAttackableLength) {
 				// ターゲットの見失いカウントを０にする
 				lostTarget = 0;
     			//弾幕難易度が０でなければ弾幕攻撃をする
-				/*int level = THKaguyaConfig.danmakuLevel;
+				int level = 5;//THKaguyaConfig.danmakuLevel;
 				if (level != 0 && attackCounter >= 0) {
 					danmakuPattern(level);
-
-				}*/
+				}
 
 				// 攻撃カウントを増やす
 				attackCounter++;
@@ -1137,15 +1143,15 @@ public abstract class EntityDanmakuMob extends MobEntity {// implements IRangedA
 				move(THShotLib.getVecFromAngle(rand.nextFloat() + 360F, rand.nextFloat() * 360F), getSpeed(), 30);
 			}
         	
-			if (moveTimer <= 0 && targetVictim != null && getAttackDistance() > 0) {
+			if (moveTimer <= 0 && targetVictim != null && entityToAttackableLength > 0) {
 				double toTargetDistance = this.getDistance(targetVictim);
 				double rate;
 
-				if (toTargetDistance < getAttackDistance()) {
-					rate = 1.0D - (toTargetDistance / getAttackDistance());
+				if (toTargetDistance < entityToAttackableLength) {
+					rate = 1.0D - (toTargetDistance / entityToAttackableLength);
 					moveBack(getSpeed() * 0.3D * rate, 15);
 				} else {
-					rate = (toTargetDistance / getAttackDistance());
+					rate = (toTargetDistance / entityToAttackableLength);
 					moveForward(getSpeed() * 0.5D * rate, 15);
 				}
 			}
