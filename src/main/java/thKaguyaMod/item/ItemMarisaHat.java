@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 import thKaguyaMod.client.model.ModelMarisaHat;
 
 public class ItemMarisaHat extends ArmorItem {
@@ -32,7 +32,7 @@ public class ItemMarisaHat extends ArmorItem {
     			.maxDamage(40)
     			.setNoRepair());
     	this.setRegistryName("marisa_hat");
-    	ModelDataProvider.setTextureName(this, "thkaguyamod:marisa_hat");//テクスチャの指定
+    	SimpleItemTexture.register(this, "thkaguyamod:marisa_hat");//テクスチャの指定
     }
 
 	@Override

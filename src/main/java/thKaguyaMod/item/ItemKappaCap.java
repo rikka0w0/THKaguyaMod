@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 
 public class ItemKappaCap extends ArmorItem {
 	//河童の帽子
@@ -22,7 +22,7 @@ public class ItemKappaCap extends ArmorItem {
     			.maxDamage(500)
     			.setNoRepair());
     	this.setRegistryName("kappa_cap");
-    	ModelDataProvider.setTextureName(this, "thkaguyamod:kappa_cap");
+    	SimpleItemTexture.register(this, "thkaguyamod:kappa_cap");
     }
 
 	@Override

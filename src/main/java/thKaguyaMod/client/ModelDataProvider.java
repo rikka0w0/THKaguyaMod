@@ -1,13 +1,11 @@
 package thKaguyaMod.client;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -15,40 +13,25 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import rikka.librikka.model.loader.ISimpleItemDataProvider;
 import thKaguyaMod.THKaguyaCore;
 
+@OnlyIn(Dist.CLIENT)
 public final class ModelDataProvider extends BlockStateProvider implements ISimpleItemDataProvider {
-	public static final Map<IItemProvider, ResourceLocation> simpleTextureItems = new HashMap<>();
-	
 	public ModelDataProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
 		super(gen, THKaguyaCore.MODID, exFileHelper);
 	}
 
 	@Override
 	protected void registerStatesAndModels() {
-		simpleTextureItems.entrySet().forEach((entry) -> {
-			Item item = entry.getKey().asItem();
-			ResourceLocation resLoc = entry.getValue();
-			if (entry.getKey() instanceof Item) {
+		SimpleItemTexture.forEach((key, resLoc) -> {
+			if (key instanceof Item) {
 				resLoc = new ResourceLocation(resLoc.getNamespace(), "item/" + resLoc.getPath());
-			} else if (entry.getKey() instanceof Block) {
+			} else if (key instanceof Block) {
 				resLoc = new ResourceLocation(resLoc.getNamespace(), "block/" + resLoc.getPath());
 			}
-			registerSimpleItem(item, resLoc);
+			registerSimpleItem(key.asItem(), resLoc);
 		});
 	}
 
-	public static void setTextureName(IItemProvider itemProvider) {
-		setTextureName(itemProvider, itemProvider.asItem().getRegistryName());
-	}
 
-	public static void setTextureName(IItemProvider itemProvider, String texture) {
-		ResourceLocation resLoc = texture.contains(":") ? new ResourceLocation(texture) :
-			new ResourceLocation(itemProvider.asItem().getRegistryName().getNamespace(), texture);
-		setTextureName(itemProvider, resLoc);
-	}
-
-	public static void setTextureName(IItemProvider itemProvider, ResourceLocation resLoc) {
-		simpleTextureItems.put(itemProvider, resLoc);
-	}
 
     //////////////////////
     /// 1.15 compatibility layer

@@ -11,7 +11,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 
 public class ItemSwallowCowrieShell extends Item {
 	private static final Food foodDef = (new Food.Builder())
@@ -29,7 +29,7 @@ public class ItemSwallowCowrieShell extends Item {
 				.food(foodDef)
 				);
 		this.setRegistryName("swallow_cowrie_shell");
-		ModelDataProvider.setTextureName(this, "thkaguyamod:koyasugai");//テクスチャの指定
+		SimpleItemTexture.register(this, "thkaguyamod:koyasugai");//テクスチャの指定
 	}
 
 	//食べたときに呼び出されるメソッド

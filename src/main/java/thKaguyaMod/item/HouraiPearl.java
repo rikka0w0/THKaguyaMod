@@ -3,7 +3,7 @@ package thKaguyaMod.item;
 import net.minecraft.item.Item;
 import net.minecraft.util.IStringSerializable;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 
 //蓬莱の玉　　なにもできないアイテム
 public enum HouraiPearl implements IStringSerializable {
@@ -24,7 +24,7 @@ public enum HouraiPearl implements IStringSerializable {
 				.maxDamage(0));
 
 		item.setRegistryName(registryName());
-		ModelDataProvider.setTextureName(item, "material/" + registryName());
+		SimpleItemTexture.register(item, "material/" + registryName());
 
 		return item;
 	}

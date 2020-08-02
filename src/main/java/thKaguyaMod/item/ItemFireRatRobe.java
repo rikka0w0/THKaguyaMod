@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 
 public class ItemFireRatRobe extends ArmorItem {
 	//火鼠の皮衣
@@ -38,7 +38,7 @@ public class ItemFireRatRobe extends ArmorItem {
     			.maxDamage(0) //アイテムの耐久設定。　0なら無限
     			);
     	this.setRegistryName("firerat_robe");
-    	ModelDataProvider.setTextureName(this, "thkaguyamod:hinezumi");//テクスチャの指定
+    	SimpleItemTexture.register(this, "thkaguyamod:hinezumi");//テクスチャの指定
     }
 
 	//アーマーのテクスチャを指定

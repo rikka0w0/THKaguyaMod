@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags.Blocks;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 
 /** 仏の御石の鉢
     石の複合ツール 剣、ツルハシ、スコップ、斧の役割を持つ
@@ -33,7 +33,7 @@ public class ItemBuddhaStoneBowl extends ToolItem {
     			.group(ItemGroupTHKaguya.main)
 				.maxDamage(itemTier.getMaxUses()));
 		this.setRegistryName("buddha_stone_bowl");
-		ModelDataProvider.setTextureName(this, "thkaguyamod:hotoke_hachi");
+		SimpleItemTexture.register(this, "thkaguyamod:hotoke_hachi");
 	}
 
 	@Override

@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import thKaguyaMod.ItemGroupTHKaguya;
-import thKaguyaMod.client.ModelDataProvider;
+import thKaguyaMod.client.SimpleItemTexture;
 import thKaguyaMod.client.model.ModelSuwakoHat;
 
 public class ItemKerobou extends ArmorItem {
@@ -31,7 +31,7 @@ public class ItemKerobou extends ArmorItem {
     			.maxDamage(620) //アイテムの耐久設定
     			.setNoRepair());
     	this.setRegistryName("suwako_hat");
-    	ModelDataProvider.setTextureName(this, "thkaguyamod:kerobou");//テクスチャの指定
+    	SimpleItemTexture.register(this, "thkaguyamod:kerobou");//テクスチャの指定
     }
 
 	//アーマーのテクスチャを指定
