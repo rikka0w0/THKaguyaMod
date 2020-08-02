@@ -45,6 +45,32 @@ public class THMathUtil {
 
 	}
     
+	/**
+	 * 角度を-180～180度に変換する
+	 * @param angle 変換する角度
+	 * @return -180～180度に変換した角度
+	 */
+	public static final float getAngleMax180(float angle) {
+		angle %= 360F;
+		if (angle > 180F) {
+			angle -= 360F;
+		} else if (angle < -180) {
+			angle += 360F;
+		}
+		return angle;
+	}
+
+	/**
+	 * ２つのベクトル、ベクトルA、ベクトルBの間の角度を返す（-180～180度）
+	 * @param vectorA
+	 * @param vectorB
+	 * @return ２つのベクトルの成す角度
+	 */
+	public static final float getVectorAndVectorAngle(Vec3d vectorA, Vec3d vectorB) {
+		double inner = vectorA.dotProduct(vectorB);
+		return getAngleMax180((float)(Math.acos(inner / (vectorA.length() * vectorB.length())) / Math.PI * 180.0D));
+	}
+
     /////////////////////////////
     /// Math Utilities
     /////////////////////////////

@@ -1,7 +1,6 @@
 package thKaguyaMod.client.render.living;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import thKaguyaMod.client.model.living.ModelCirno;
 import thKaguyaMod.entity.living.EntityCirno;

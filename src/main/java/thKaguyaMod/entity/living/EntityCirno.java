@@ -47,11 +47,7 @@ public class EntityCirno extends EntityDanmakuMob {
 	public EntityCirno(final EntityType<? extends EntityDanmakuMob> entityType, final World world) {
 		super(entityType, world);		
         
-        this.experienceValue = 250;					// 経験値の量
-        
-        this.setDanmakuMobName("Cirno");			// 体力バーに表示される名前を設定
-        this.setSpecies(this.SPECIES_FAIRY, this.SPECIES_FAIRY_ICE);
-        											// 種族の設定
+        this.experienceValue = 250;					// 経験値の量        											
     	
     	this.setDanmakuPattern(NORMAL_ATTACK01);	// 最初の弾幕パターン
     	this.setMaxHP(38.0F);						// 最初の最大HP
@@ -66,6 +62,16 @@ public class EntityCirno extends EntityDanmakuMob {
     	this.attackInterval = 0;					// 次の攻撃パターンへの移行時間
     	this.random = 0;							// ランダム値
     }
+	
+    @Override
+	public int getSpecies_1() {
+		return SPECIES_FAIRY; // 種族の設定
+	}
+
+    @Override
+	public int getSpecies_2() {
+		return SPECIES_FAIRY_ICE;
+	}
 
     //死んでいるときに呼ばれる
 	@Override
