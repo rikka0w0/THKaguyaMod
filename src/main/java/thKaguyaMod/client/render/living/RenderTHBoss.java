@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,9 +15,10 @@ import org.lwjgl.opengl.GL11;
 
 import thKaguyaMod.THShotLib;
 import thKaguyaMod.entity.living.EntityDanmakuMob;
+import thKaguyaMod.entity.living.IDanmakuMob;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityModel<T>> extends LivingRenderer<T,M> {
+public abstract class RenderTHBoss<T extends LivingEntity, M extends EntityModel<T>> extends LivingRenderer<T,M> {
 	//ボスの描画の共通処理
 	
 	ResourceLocation statusTexture = new ResourceLocation("thkaguyamod", "textures/mob/status.png");
@@ -29,15 +31,17 @@ public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityM
     public void doRender(T entity, double x, double y, double z, float yaw, float pitch) {
     	//GL11.glDisable(GL11.GL_LIGHTING);
     	//GL11.glEnable(GL11.GL_BLEND);
+    	this.renderOutlines = false;
     	super.doRender(entity, x, y, z, yaw, pitch);
     	this.renderTHBossStatus(entity, x, y, z, yaw, pitch);
     }
 
-	public void renderTHBossStatus(EntityDanmakuMob danmakuMob, double x, double y, double z, float yaw, float pitch) {
-		if (danmakuMob.getDanmakuPattern() == danmakuMob.NOT_ATTACK) {
-			//return;
+	public void renderTHBossStatus(T entity, double x, double y, double z, float yaw, float pitch) {
+		IDanmakuMob danmakuMob = (IDanmakuMob) entity;
+		if (danmakuMob.getDanmakuPattern() == IDanmakuMob.NOT_ATTACK) {
+			return;
 		}
-		
+
 		//体力ゲージを表示する
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -59,7 +63,7 @@ public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityM
         float span = THShotLib.getVectorAndVectorAngle(look, toEntity);
         float alpha = 1F - (Math.abs(span) - 20F) / 30F;
         
-		double distance = renderManager.getDistanceToCamera(danmakuMob.posX, danmakuMob.posY, danmakuMob.posZ);
+		double distance = renderManager.getDistanceToCamera(entity.posX, entity.posY, entity.posZ);
 		float size = 1.0F + (float)distance / 64F;
 		if(size > 5.0F )
 		{
@@ -68,7 +72,7 @@ public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityM
         
         if(Math.abs(span) <= 20F)
         {
-        	GL11.glTranslatef((float)x, (float)y + danmakuMob.getHeight() + 1.5F, (float)z);
+        	GL11.glTranslatef((float)x, (float)y + entity.getHeight() + 1.5F, (float)z);
         	GL11.glScalef(1.0F * size, 1.0F * size, 1.0F * size);
         	
 
@@ -79,8 +83,8 @@ public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityM
     		this.bindTexture(statusTexture);
     		int cardNo = danmakuMob.getUsingSpellCardNo();
 
-    		float hp = danmakuMob.getHealth() / danmakuMob.getMaxHealth();
-    		float hp2 = danmakuMob.getHealth() / danmakuMob.getMaxHealth() * 2.0F - 1.0F;
+    		float hp = entity.getHealth() / entity.getMaxHealth();
+    		float hp2 = entity.getHealth() / entity.getMaxHealth() * 2.0F - 1.0F;
     		
 			tessellator.startDrawingQuads();
 			//tessellator.setColorRGBA_F(1.0F, 1.0F, 1.0F, alpha);
@@ -122,7 +126,7 @@ public abstract class RenderTHBoss<T extends EntityDanmakuMob, M extends EntityM
 	    	GL11.glScalef(0.02F, 0.02F, 0.02F);
 	    	tessellator.setColorRGBA_F(1.0F, 1.0F, 1.0F, alpha);
 	    	FontRenderer font = this.getFontRendererFromRenderManager();
-	    	font.drawStringWithShadow(danmakuMob.getDisplayName().getString(), -50, 0, 0x00FF88);
+	    	font.drawStringWithShadow(entity.getDisplayName().getString(), -50, 0, 0x00FF88);
 	    	
 	    	//スペルカードを使用中なら、スペルカード名を表示する
 			if (cardNo >= 0) {

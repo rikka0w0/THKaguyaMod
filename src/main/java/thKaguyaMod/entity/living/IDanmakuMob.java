@@ -1,169 +1,98 @@
 package thKaguyaMod.entity.living;
 
-public interface IDanmakuMob {
-	//弾幕MOBの種族
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
+
+public interface IDanmakuMob extends IDanmakuMobDefinition {
+	///////////////////////////
+	/// Danmaku State
+	///////////////////////////
+	//攻撃の段階
+	/** 攻撃の意思がない状態を表す */
+	public static final int NOT_ATTACK 	  = 0;
+	/** 通常攻撃１ */
+	public static final int NORMAL_ATTACK01 = 1;
+	/** 通常攻撃２ */
+	public static final int NORMAL_ATTACK02 = 2;
+	/** 通常攻撃３ */
+	public static final int NORMAL_ATTACK03 = 3;
+	public static final int NORMAL_ATTACK04 = 4;
+	public static final int NORMAL_ATTACK05 = 5;
+	public static final int NORMAL_ATTACK06 = 6;
+	public static final int NORMAL_ATTACK07 = 7;
+	public static final int NORMAL_ATTACK08 = 8;
+	public static final int NORMAL_ATTACK09 = 9;
+	public static final int NORMAL_ATTACK10 =10;
+	public static final int NORMAL_ATTACK11 =11;
+	public static final int NORMAL_ATTACK12 =12;
+	public static final int NORMAL_ATTACK13 =13;
+	public static final int NORMAL_ATTACK14 =14;
+	public static final int NORMAL_ATTACK15 =15;
+	public static final int NORMAL_ATTACK16 =16;
+	public static final int NORMAL_ATTACK17 =17;
+	public static final int NORMAL_ATTACK18 =18;
+	public static final int NORMAL_ATTACK19 =19;
+	public static final int NORMAL_ATTACK20 =20;
+	/** スペルカード１ */
+	public static final int SPELLCARD_ATTACK01 = 101;
+	/** スペルカード２ */
+	public static final int SPELLCARD_ATTACK02 = 102;
+	/** スペルカード３ */
+	public static final int SPELLCARD_ATTACK03 = 103;
+	public static final int SPELLCARD_ATTACK04 = 104;
+	public static final int SPELLCARD_ATTACK05 = 105;
+	public static final int SPELLCARD_ATTACK06 = 106;
+	public static final int SPELLCARD_ATTACK07 = 107;
+	public static final int SPELLCARD_ATTACK08 = 108;
+	public static final int SPELLCARD_ATTACK09 = 109;
+	public static final int SPELLCARD_ATTACK10 = 110;
+	public static final int SPELLCARD_ATTACK11 = 111;
+	public static final int SPELLCARD_ATTACK12 = 112;
+	public static final int SPELLCARD_ATTACK13 = 113;
+	public static final int SPELLCARD_ATTACK14 = 114;
+	public static final int SPELLCARD_ATTACK15 = 115;
+	public static final int SPELLCARD_ATTACK16 = 116;
+	public static final int SPELLCARD_ATTACK17 = 117;
+	public static final int SPELLCARD_ATTACK18 = 118;
+	public static final int SPELLCARD_ATTACK19 = 119;
+	public static final int SPELLCARD_ATTACK20 = 120;
+	public static final int SPELLCARD_ATTACK21 = 121;
+	public static final int SPELLCARD_ATTACK22 = 122;
+	public static final int SPELLCARD_ATTACK23 = 123;
+	public static final int SPELLCARD_ATTACK24 = 124;
+	public static final int SPELLCARD_ATTACK25 = 125;
+	public static final int SPELLCARD_ATTACK26 = 126;
+	/** 攻撃の終了を表す(倒れた) */
+	public static final int ATTACK_END = 127;
 	
-	//人間に属す種族
-	/** 種族：人間 */
-	public static final int SPECIES_HUMAN = 0;
-	/** 種族：半人 */
-	public static final int SPECIES_HUMAN_HALF = 1;
-	/** 種族：月人 */
-	public static final int SPECIES_HUMAN_LUNARIAN = 2;
-	/** 種族：仙人 */
-	public static final int SPECIES_HUMAN_HERMIT = 3;
-	/** 種族：尸解仙*/
-	public static final int SPECIES_HUMAN_SHIKAISEN = 4;
-	/** 種族：天人 */
-	public static final int SPECIES_HUMAN_CELESTIALS = 5;
-	/** 種族：聖人 */
-	public static final int SPECIES_HUMAN_SAINT = 6;
-	/** 種族：小人 */
-	public static final int SPECIES_HUMAN_INCHLINGS = 7;
-	/** 種族：蓬莱人 */
-	public static final int SPECIES_HUMAN_HOURAI = 8;
-	
-	//神に属す種族
-	/** 種族：神 */
-	public static final int SPECIES_GOD = 32;
-	/** 種族：現人神 */
-	public static final int SPECIES_GOD_ARAHITOGAMI = 33;
-	/** 種族：八咫烏 */
-	public static final int SPECIES_GOD_YATAGARASU = 34;
-	
-	//閻魔
-	/** 種族：閻魔 */
-	public static final int SPECIES_ENMA = 48;
-	
-	//妖精に属す種族
-	/** 種族：妖精 */
-	public static final int SPECIES_FAIRY = 64;
-	/** 種族：氷精 */
-	public static final int SPECIES_FAIRY_ICE = 65;
-	
-	//幽霊に属す種族
-	/** 種族：幽霊 */
-	public static final int SPECIES_PHANTOM = 92;
-	/** 種族：半霊 */
-	public static final int SPECIES_PHANTOM_HALF = 93;
-	/** 種族：亡霊 */
-	public static final int SPECIES_PHANTOM_GHOST = 94;
-	/** 種族：神霊 */
-	public static final int SPECIES_PHANTOM_DIVINESPIRIT = 95;
-	/** 種族：船幽霊 */
-	public static final int SPECIES_PHANTOM_SHIP = 96;
-	/** 種族：キョンシー */
-	public static final int SPECIES_PHANTOM_JIANGSHI = 97;
-	
-	//式神に属す種族
-	/** 種族：式神 */
-	public static final int SPECIES_SHIKIGAMI = 108;
-	/** 種族：人形 */
-	public static final int SPECIES_SHIKIGAMI_DOLL = 109;
-	/** 種族：使い魔 */
-	public static final int SPECIES_SHIKIGAMI_FAMILIAR = 110;
-	
-	//妖怪に属す種族
-	/** 種族：妖怪 */
-	public static final int SPECIES_YOUKAI = 128;//妖怪
-	/** 種族：魔法使い */
-	public static final int SPECIES_YOUKAI_MAGICIAN = 129;//魔法使い
-	/** 種族：妖獣 */
-	public static final int SPECIES_YOUKAI_BEAST = 130;//妖獣
-	/** 種族：吸血鬼 */
-	public static final int SPECIES_YOUKAI_VAMPIRE = 131;//吸血鬼
-	/** 種族：鬼 */
-	public static final int SPECIES_YOUKAI_ONI = 132;//鬼
-	/** 種族：河童 */
-	public static final int SPECIES_YOUKAI_KAPPA = 133;//河童
-	/** 種族：烏天狗 */
-	public static final int SPECIES_YOUKAI_TENGU_CROW = 134;//烏天狗
-	/** 種族：白狼天狗 */
-	public static final int SPECIES_YOUKAI_TENGU_WHITEWOLF = 135;//白狼天狗
-	/** 種族：死神 */
-	public static final int SPECIES_YOUKAI_SHINIGAMI = 136;//死神
-	/** 種族：雪女 */
-	public static final int SPECIES_YOUKAI_YUKIONNA = 137;//雪女
-	/** 種族：妖蟲 */
-	public static final int SPECIES_YOUKAI_BUG = 139;//妖蟲
-	/** 種族：夜雀 */
-	public static final int SPECIES_YOUKAI_YOSUZUME = 140;//夜雀
-	/** 種族：妖怪兎 */
-	public static final int SPECIES_YOUKAI_RABBIT = 142;//妖怪兎
-	/** 種族：付喪神 */
-	public static final int SPECIES_YOUKAI_TUKUMOGAMI = 143;//付喪神
-	/** 種族：釣瓶落とし */
-	public static final int SPECIES_YOUKAI_TURUBEOTOSHI = 144;//釣瓶落とし
-	/** 種族：橋姫 */
-	public static final int SPECIES_YOUKAI_HASHIHIME = 145;//橋姫
-	/** 種族：覚 */
-	public static final int SPECIES_YOUKAI_SATORI = 146;//覚
-	/** 種族：入道 */
-	public static final int SPECIES_YOUKAI_NYUUDOU = 147;//入道
-	/** 種族：鵺 */
-	public static final int SPECIES_YOUKAI_NUE = 148;//鵺
-	/** 種族：人魚 */
-	public static final int SPECIES_YOUKAI_MERMAID = 149;//人魚
-	/** 種族：天邪鬼 */
-	public static final int SPECIES_YOUKAI_AMANOJAKU = 150;//天邪鬼
-	
-	//龍神
-	/** 種族：龍神 */
-	public static final int SPECIES_DRAGON = 192;
-	
-	//その他の種族
-	/** 種族：その他種族 */
-	public static final int SPECIES_OTHERS = 255;
-	
-	// Method prototypes
-	int getSpecies_1();	// Primary Species
-	/**
-	 * @return Secondary Species, -1 if not applicable.
-	 */
-	default int getSpecies_2() {
-		return -1;
-	};
-	
-    /**
-     * 人間ならtrueを返す
-     * @return 人間ならtrue
-     */
-	default boolean isHuman() {
-		return getSpecies_1() < SPECIES_GOD || getSpecies_2() < this.SPECIES_GOD;
+	///////////////////////////
+	/// Method prototypes
+	///////////////////////////
+
+	//周りの妖精を呼び出すことができるか
+	boolean canFairyCall();
+
+	int getFlyingHeight();
+
+	double getAttackDistance();
+
+	default double getDetectionDistance() {
+		LivingEntity entity = (LivingEntity) this;
+		double detectionDistance = entity.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getValue();
+		return detectionDistance;
 	}
-    
-    /**
-     * 幽霊ならtrueを返す
-     * @return 幽霊ならtrue
-     */
-	default boolean isPhantom() {
-		return (getSpecies_1() >= SPECIES_PHANTOM && getSpecies_1() < SPECIES_SHIKIGAMI)
-				|| (getSpecies_2() >= SPECIES_PHANTOM && getSpecies_2() < SPECIES_SHIKIGAMI);
+	
+	default double getSpeed() {
+		return 0.25D;
 	}
-    
-    /**
-     * 妖精ならtrueを返す
-     * @return 妖精ならtrue
-     */
-	default boolean isFairy() {
-		return getSpecies_1() == SPECIES_FAIRY || getSpecies_2() == SPECIES_FAIRY;
+
+	void shotDamakuTick(boolean isTargetVisible);
+
+	default int getDanmakuPattern() {
+		return NORMAL_ATTACK01;	// TODO: Fix this
 	}
-    
-    /**
-     * 妖怪ならtrueを返す
-     * @return 妖怪ならtrue
-     */
-	default boolean isYoukai() {
-		return (getSpecies_1() >= SPECIES_YOUKAI && getSpecies_1() < SPECIES_DRAGON)
-				|| (getSpecies_2() >= SPECIES_YOUKAI && getSpecies_2() < SPECIES_DRAGON);
-	}
-    
-    /**
-     * ある種族であるか返す
-     * @param species 種族
-     * @return ある種族であるならtrue
-     */
-	default boolean isInSpecies(int species) {
-		return getSpecies_1() == species || getSpecies_2() == species;
+	
+	default int getUsingSpellCardNo() {
+		return 0;
 	}
 }

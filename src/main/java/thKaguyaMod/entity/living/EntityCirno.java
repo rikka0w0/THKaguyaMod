@@ -2,33 +2,40 @@ package thKaguyaMod.entity.living;
 
 //import static thKaguyaMod.DanmakuConstants.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.MoverType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 /*import thKaguyaMod.LaserData;
 import thKaguyaMod.ShotData;*/
 import thKaguyaMod.THShotLib;
+import thKaguyaMod.entity.ai.FairyAttackGoal;
+import thKaguyaMod.entity.ai.NearGroundRandomFlyGoal;
+import thKaguyaMod.entity.ai.NearGroundRandomFlyMovementController;
 /*import thKaguyaMod.entity.spellcard.EntitySpellCard;
 import thKaguyaMod.init.THKaguyaConfig;*/
 import thKaguyaMod.init.THKaguyaItems;
 //import thKaguyaMod.item.ItemTHShot;
 
 /** チルノ */
-public class EntityCirno extends EntityDanmakuMob {
+public class EntityCirno extends CreatureEntity implements IDanmakuMob {
 	public static final EntityType<EntityCirno> entityType;
 	
 	static {
@@ -44,25 +51,32 @@ public class EntityCirno extends EntityDanmakuMob {
 	private int random;
 	
 	/** チルノのコンストラクタ（Worldのみは必須） */
-	public EntityCirno(final EntityType<? extends EntityDanmakuMob> entityType, final World world) {
+	public EntityCirno(final EntityType<? extends CreatureEntity> entityType, final World world) {
 		super(entityType, world);		
-        
+		this.moveController = new NearGroundRandomFlyMovementController(this);
+
         this.experienceValue = 250;					// 経験値の量        											
-    	
-    	this.setDanmakuPattern(NORMAL_ATTACK01);	// 最初の弾幕パターン
-    	this.setMaxHP(38.0F);						// 最初の最大HP
+    	//this.setDanmakuPattern(NORMAL_ATTACK01);	// 最初の弾幕パターン
         this.setHealth(38.0F);						// 最初のHP
-        this.setSpeed(0.5F);						// 移動速度
-        this.setAttackDistance(14.0D);				// 攻撃時取る間合い
-    	this.setDetectionDistance(30.0D);			// 索敵範囲
-    	this.setFlyingHeight(2);					// 飛行高度
-    	this.isFlyingMode = true;					// 飛行モードのONOFF
-    	
-    	this.isSpellCardMode = false;				// スペルカードモード判定
-    	this.attackInterval = 0;					// 次の攻撃パターンへの移行時間
+
     	this.random = 0;							// ランダム値
     }
+
+	@Override
+	public double getSpeed() {
+		return 0.5F; // 移動速度
+	}
 	
+	@Override
+	public double getAttackDistance() {
+		return 14; // 攻撃時取る間合い
+	}
+
+	@Override
+	public int getFlyingHeight() {
+		return 2; // 飛行高度
+	}
+
     @Override
 	public int getSpecies_1() {
 		return SPECIES_FAIRY; // 種族の設定
@@ -72,9 +86,101 @@ public class EntityCirno extends EntityDanmakuMob {
 	public int getSpecies_2() {
 		return SPECIES_FAIRY_ICE;
 	}
+   
+	@Override
+	protected void registerAttributes() {
+		super.registerAttributes();
+		//this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.1D);
+		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.025F);
+		this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(34.0D); // 索敵範囲
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+
+		this.goalSelector.addGoal(4, new FairyAttackGoal(this));
+		this.goalSelector.addGoal(5, new NearGroundRandomFlyGoal(this, () -> Double.valueOf(this.getFlyingHeight())));
+		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+
+		// this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp());
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+		// targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (player) -> true));
+	}
+
+
+    @Override
+	public void fall(float distance, float damageMultiplier) {
+		if (getFlyingHeight() > 0) {
+			super.fall(distance, damageMultiplier);
+		}
+    }
+
+	@Override
+	protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+	}
+
+	
+	@Override
+	public void travel(Vec3d towards) {
+		if (getFlyingHeight() <= 0) {
+			super.travel(towards);
+		} else {
+			travelFlying(towards);
+		}
+	}
+
+	protected final void travelFlying(Vec3d p_213352_1_) {
+		if (this.isInWater()) {
+			this.moveRelative(0.02F, p_213352_1_);
+			this.move(MoverType.SELF, this.getMotion());
+			this.setMotion(this.getMotion().scale((double) 0.8F));
+		} else if (this.isInLava()) {
+			this.moveRelative(0.02F, p_213352_1_);
+			this.move(MoverType.SELF, this.getMotion());
+			this.setMotion(this.getMotion().scale(0.5D));
+		} else {
+			BlockPos ground = new BlockPos(this.posX, this.getBoundingBox().minY - 1.0D, this.posZ);
+			float f = 0.91F;
+			if (this.onGround) {
+				f = this.world.getBlockState(ground).getSlipperiness(world, ground, this) * 0.91F;
+			}
+
+			float f1 = 0.16277137F / (f * f * f);
+			f = 0.91F;
+			if (this.onGround) {
+				f = this.world.getBlockState(ground).getSlipperiness(world, ground, this) * 0.91F;
+			}
+
+			this.moveRelative(this.onGround ? 0.1F * f1 : 0.02F, p_213352_1_);
+			this.move(MoverType.SELF, this.getMotion());
+			this.setMotion(this.getMotion().scale((double) f));
+		}
+
+		this.prevLimbSwingAmount = this.limbSwingAmount;
+		double d1 = this.posX - this.prevPosX;
+		double d0 = this.posZ - this.prevPosZ;
+		float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+		if (f2 > 1.0F) {
+			f2 = 1.0F;
+		}
+
+		this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
+		this.limbSwing += this.limbSwingAmount;
+	}
+
+	@Override
+	public void shotDamakuTick(boolean isTargetVisible) {
+		if (isTargetVisible) {
+
+		} else {
+			
+		}
+	}
 
     //死んでいるときに呼ばれる
-	@Override
+	/*@Override
 	protected void onDeathUpdate() {
 		if (ticksExisted <= lastTime) {
 			return;
@@ -100,28 +206,28 @@ public class EntityCirno extends EntityDanmakuMob {
 			super.onDeathUpdate();
 
 		}
-	}
+	}*/
     /**
      * 使用しているスペルカードNoを返す
      * @return 使用しているスペルカードNo
      */
-	@Override
+	/*@Override
     public int getUsingSpellCardNo() {
     	switch(getDanmakuPattern()) {
-    	/*case SPELLCARD_ATTACK01:
+    	case SPELLCARD_ATTACK01:
     		return EntitySpellCard.SC_CIRNO_IcicleFall;
     	case SPELLCARD_ATTACK02:
-    		return EntitySpellCard.SC_CIRNO_PerfectFreeze;*/
+    		return EntitySpellCard.SC_CIRNO_PerfectFreeze;
     	default:
     		return -1;
     	}
-    }
+    }*/
 
     /** 弾幕のパターンを記述
      * @param level : EASY～LUNATICの難易度
      */
 
-    @Override
+    /*@Override
     public void danmakuPattern(int level) {
     	Vec3d angle = THShotLib.getVecFromAngle(rotationYaw, rotationPitch);
     	if(attackCounter >= 40) {
@@ -143,8 +249,8 @@ public class EntityCirno extends EntityDanmakuMob {
 			break;
 		default:
 			break;
-		}*/
-    }
+		}
+    }*/
     	/* TOOD danmaku system is pretty much fucked up
     //通常１
     private void danmaku01(Vec3 angle, int level)
@@ -234,8 +340,7 @@ public class EntityCirno extends EntityDanmakuMob {
     
     //周りの妖精を呼び出すことができるか
     @Override
-    protected boolean canFairyCall()
-    {
+    public boolean canFairyCall() {
     	return false;//チルノは周りの妖精の助けを得ない
     }
     
@@ -354,8 +459,8 @@ public class EntityCirno extends EntityDanmakuMob {
 	@Override
 	protected void dropLoot(DamageSource ds, boolean hasBeenAttackedByPlayer) {
 		super.dropLoot(ds, hasBeenAttackedByPlayer);
-		
-		if( hasBeenAttackedByPlayer && this.isSpellCardAttack() )
+		// TODO dropLoot
+		/*if( hasBeenAttackedByPlayer && this.isSpellCardAttack() )
 		{
 	        int j = 40;//this.rand.nextInt(15) + this.rand.nextInt(1 + par2);
 	        int k;
@@ -379,7 +484,7 @@ public class EntityCirno extends EntityDanmakuMob {
 		if (hasBeenAttackedByPlayer && getDanmakuPattern() == SPELLCARD_ATTACK02) {
 			// TODO this.dropItem(THKaguyaItems.icicle_sword, 1);
 			this.dropExtendItem(this.pos(), this.angle(this.rotationYaw, -90F));
-		}
+		}*/
     }
 
     /**
@@ -437,31 +542,8 @@ public class EntityCirno extends EntityDanmakuMob {
         }
     	return false;
     }*/
-	
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
 
-		// targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (player) -> true));
-	}
-	
-	/**
-	 * Attack the specified entity using a ranged attack.
-	 */
-	public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-		ItemStack itemstack = new ItemStack(Items.ARROW);
-		AbstractArrowEntity abstractarrowentity = this.func_213624_b(itemstack, distanceFactor);
-		double d0 = target.posX - this.posX;
-		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F) - abstractarrowentity.posY;
-		double d2 = target.posZ - this.posZ;
-		double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-		abstractarrowentity.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F,
-				(float) (14 - this.world.getDifficulty().getId() * 4));
-		this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.world.addEntity(abstractarrowentity);
-	}
-
-	protected AbstractArrowEntity func_213624_b(ItemStack p_213624_1_, float p_213624_2_) {
-		return ProjectileHelper.func_221272_a(this, p_213624_1_, p_213624_2_);
+	public int getSpellCardMotion() {
+		return -30;
 	}
 }
