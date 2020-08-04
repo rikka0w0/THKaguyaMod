@@ -37,9 +37,9 @@ import thKaguyaMod.entity.item.EntityYuukaParasol;*/
 import thKaguyaMod.entity.living.EntityCirno;
 /*import thKaguyaMod.entity.living.EntityDanmakuCreeper;
 import thKaguyaMod.entity.living.EntityFamiliar;
-import thKaguyaMod.entity.living.EntityMiko;
+import thKaguyaMod.entity.living.EntityMiko;*/
 import thKaguyaMod.entity.living.EntityReimu;
-import thKaguyaMod.entity.living.EntityRinnosuke;
+/*import thKaguyaMod.entity.living.EntityRinnosuke;
 import thKaguyaMod.entity.living.EntityRumia;
 import thKaguyaMod.entity.living.EntitySakuya;
 import thKaguyaMod.entity.living.EntitySanae;
@@ -280,9 +280,9 @@ public class CommonProxy {
 		/*EntityRegistry.registerModEntity( EntityRumia.class     				, "Rumia"     				,  66, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityToziko.class     				, "Toziko"     				,  67, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityTHPhantom.class					, "THPhantom"				,  68, THKaguyaCore.instance, 80, 1, true	);
-		EntityRegistry.registerModEntity( EntitySanae.class            			, "Sanae"					,  69, THKaguyaCore.instance, 80, 1, true	);
-		EntityRegistry.registerModEntity( EntityReimu.class            			, "Reimu"					,  70, THKaguyaCore.instance, 80, 1, true	);
-		EntityRegistry.registerModEntity( EntityMiko.class            			, "Miko"					,  71, THKaguyaCore.instance, 80, 1, true	);
+		EntityRegistry.registerModEntity( EntitySanae.class            			, "Sanae"					,  69, THKaguyaCore.instance, 80, 1, true	);*/
+		registry.register(EntityReimu.entityType); // id = 70, trackingRange = 80, updateFrequency = 1, sendsVelocityUpdates = true
+		/*EntityRegistry.registerModEntity( EntityMiko.class            			, "Miko"					,  71, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityWriggle.class            		, "Wriggle"					,  72, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntitySakuya.class            		, "Sakuya"					,  73, THKaguyaCore.instance, 80, 1, true	);
 		EntityRegistry.registerModEntity( EntityRinnosuke.class					, "Rinnosuke"     			,  90, THKaguyaCore.instance, 80, 1, true	);

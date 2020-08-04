@@ -13,20 +13,30 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import org.lwjgl.opengl.GL11;
 
+import thKaguyaMod.THKaguyaCore;
 import thKaguyaMod.THShotLib;
-import thKaguyaMod.entity.living.EntityDanmakuMob;
 import thKaguyaMod.entity.living.IDanmakuMob;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class RenderTHBoss<T extends LivingEntity, M extends EntityModel<T>> extends LivingRenderer<T,M> {
+public class RenderTHBoss<T extends LivingEntity, M extends EntityModel<T>> extends LivingRenderer<T,M> {
 	//ボスの描画の共通処理
 	
-	ResourceLocation statusTexture = new ResourceLocation("thkaguyamod", "textures/mob/status.png");
+	public static ResourceLocation statusTexture = new ResourceLocation("thkaguyamod", "textures/mob/status.png");
+	private final ResourceLocation texture;
 
-	public RenderTHBoss(EntityRendererManager manager, M entityModel, float shadowSize) {
-		super(manager, entityModel, shadowSize);
+	public RenderTHBoss(EntityRendererManager manager, M entityModel) {
+		this(manager, entityModel, 0.25F);
 	}
-    
+	
+	public RenderTHBoss(EntityRendererManager manager, M entityModel, float shadowSize) {
+		this(manager, entityModel, shadowSize, getTextureForModel(entityModel));
+	}
+	
+	public RenderTHBoss(EntityRendererManager manager, M entityModel, float shadowSize, ResourceLocation texture) {
+		super(manager, entityModel, shadowSize);
+		this.texture = texture;
+	}
+
     @Override
     public void doRender(T entity, double x, double y, double z, float yaw, float pitch) {
     	//GL11.glDisable(GL11.GL_LIGHTING);
@@ -142,6 +152,15 @@ public abstract class RenderTHBoss<T extends LivingEntity, M extends EntityModel
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity) {
-		return statusTexture;
+		return texture;
+	}
+	
+	public static ResourceLocation getTextureForModel(EntityModel<?> model) {
+		if (model.getClass().isAnnotationPresent(IMobTextureProvider.class)) {
+			String path = model.getClass().getAnnotation(IMobTextureProvider.class).value();
+			return new ResourceLocation(THKaguyaCore.MODID, path);
+		} else {
+			return statusTexture;
+		}
 	}
 }

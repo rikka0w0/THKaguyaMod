@@ -11,9 +11,11 @@ import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import thKaguyaMod.client.render.living.IMobTextureProvider;
 import thKaguyaMod.entity.living.EntityCirno;
 
 @OnlyIn(Dist.CLIENT)
+@IMobTextureProvider("textures/mob/cirno.png")
 public class ModelCirno extends EntityModel<EntityCirno> {
 	RendererModel body;
 	RendererModel head;
